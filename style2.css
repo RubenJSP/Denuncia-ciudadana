@@ -1,0 +1,79 @@
+body{
+	margin: 0;
+	background-color: #f7f7f7;
+
+}
+
+.container{
+	display: flex;
+	flex-direction: column;
+	margin-top: 30px;
+}
+
+.report{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 500px;
+	margin-bottom: 10px;
+	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.50);
+}
+
+.chat{
+	width: 100%;
+	height: 400px;
+	margin: 10px;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	border: 1px solid #000;
+	overflow-y: scroll;
+	padding: 15px;
+	font-size: 22px;
+}
+
+.chat li{
+	list-style: none;
+}
+.msj-user{
+	max-width: 50%;
+	border: 1px solid #000;
+	float: left;
+	padding: 5px;
+	border-radius: 3px;
+	word-wrap: break-word;
+}
+.report-title{
+	width: 100%;
+	height: 15%;
+	text-align: right;
+	background-color: #007aff;
+	padding-right: 20px;
+	padding-top: 20px;
+	font-size: 25px;
+	color: #FFF;
+}
+.body-cont{
+	display: flex;
+	height: 85%;
+	width: 100%;
+	box-sizing: border-box;
+}
+.img-View{
+	width: 50%;
+	box-sizing: border-box;
+
+}
+.img-View img{
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.info-cont{
+	padding-top: 50px;
+	width: 50%;
+	height: 40%;
+	box-sizing: border-box;
+	font-size: 18px;
+
+}

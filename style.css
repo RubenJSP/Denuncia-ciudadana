@@ -1,0 +1,88 @@
+html {
+  min-height: 100%;
+  position: relative;
+}
+body {
+  margin: 0;
+}
+.header{
+    height: 50px;
+    background-color: #007aff;
+    width: 100%;
+    display: flex;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.50);
+}
+.logo{
+    padding-left: 20px;
+    color: #FFF;
+    width: 20%;
+    display: inline-block;
+}
+.logo h2{
+    margin: 0;
+}
+.opciones{
+    width: 80%;
+    display: flex;
+    padding: 10px 0 0 650px;
+
+}
+.opciones ul{
+    display: flex;
+}
+.opciones ul li{
+    margin-left: 20px;
+    list-style: none;
+}
+
+.opciones ul li a{
+    font-size: 20px;
+    text-align: right;  
+    color: #FFF;
+    margin-left: 20px;
+    list-style: none;
+}
+
+.map{
+    max-width: 1500px;
+    height: 80vh;
+    margin: 20px auto;
+}
+.mbt{
+    margin: 0 auto;
+}
+.mapS{
+    max-width: 1500px;
+    height: 50vh;
+    margin: 20px auto;
+}
+.firstP{
+    max-width: 1500px;
+    margin: 10px auto 5px; 
+}
+.data-report{
+    max-width: 1500px;
+    margin: 10px auto 70px;
+}
+.firstP p{
+    font-size: 18px;
+}
+.row{
+    margin: 0 0 20px;
+}
+.row label{
+    width: 40%;
+    text-align: center;
+}
+.footer{
+ padding-top: 5px;
+ height: 50px;
+ width: 100%;
+ display: flex;
+ justify-content: center;
+ align-items: center;   
+ background-color: #007aff;
+ color: #FFF;
+ position: absolute;
+  bottom: 0;
+}
