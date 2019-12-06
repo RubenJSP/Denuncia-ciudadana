@@ -60,7 +60,6 @@
             	$data .='<div class="report">
 			<div class="report-title" '.$color.'>'. $row['tipo'].' - '.$myFormatForView.'</div>
 			<div class="body-cont">
-			<div class="body-cont">
 				<input name="'.$row['idDenuncia'].'" type="hidden">
 				<div class="img-View"><img src="uploaded_files/'.$row['img'].'"></div>
 				<div class="info-cont">	
