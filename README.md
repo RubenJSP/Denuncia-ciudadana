@@ -1,5 +1,5 @@
 # Denuncia ciudadana
 Integrantes
-Ruben Jasahel Sandoval Perez
-Darien Ramirez Chaidez
-Brandon Julian Borrego
+Ruben Jasahel Sandoval Perez, 
+Darien Ramirez Chaidez, 
+Brandon Julian Borrego Irazoqui
