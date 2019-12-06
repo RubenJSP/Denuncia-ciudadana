@@ -72,6 +72,13 @@
 				</div>	
 			</div> </div>';
             }
+             if(strlen($data)<1)
+            	$data = '
+            	<div class="alert alert-primary" role="alert" style="margin: 0 auto; width:1000px;">
+ 				 La lista de reportes está vacía.
+				</div>
+
+            	';
 
             return $data;
 
