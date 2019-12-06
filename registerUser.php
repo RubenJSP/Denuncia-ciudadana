@@ -55,11 +55,13 @@
             return $data;
     	}
 
-				if(isset($_POST['name'])){
+		if(isset($_POST['name'])){
 					$match = findMail($mail);
 
-					if($mail != $match['eMail'])
+					if($mail != $match['eMail']){
 					saveUser($nombre, $aP, $aM, $mail, $pass, $fecha, $tipo);
+					header("Location: index.php?done=1");
+					}
 					else
 					 header("Location: register.php?exist=yes");	
 

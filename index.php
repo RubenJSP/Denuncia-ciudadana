@@ -10,6 +10,13 @@
 		else
 			header("Location: admin.php");
 	}
+	if(isset($_GET['done'])){
+
+
+		echo '<div class="alert alert-success" role="alert" style="margin:10px auto; width:800px;">
+	  			Su registro se completó correctamente, ahora puede iniciar sesión.
+			</div>';
+	}
 
 ?>
 
