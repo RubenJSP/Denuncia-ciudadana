@@ -58,7 +58,7 @@ function getReports($filtro){
             		$color='';
 
             	$data .='<div class="report">
-			<div class="report-title" '.$color.'> Reporte - '.$myFormatForView.'</div>
+			<div class="report-title" '.$color.'>'. $row['tipo'].' - '.$myFormatForView.'</div>
 			<div class="body-cont">
 				<input name="'.$row['idDenuncia'].'" type="hidden">
 				<div class="img-View"><img src="uploaded_files/'.$row['img'].'"></div>
