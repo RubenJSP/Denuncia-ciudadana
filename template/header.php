@@ -27,6 +27,7 @@
                     <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a> </li>';
                     }else{
                         echo  '<li><a href="admin.php"><i class="fas fa-user-shield"></i> '. $datos['nombre'].'</a> </li> <li><a href="register.php"><i class="fas fa-users"></i> Registrar administrador</a> </li>
+                            </li> <li><a href="dashboard.php"><i class="fas fa-chart-line"></i> Estadísticas</a> </li>
                         <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a> </li>';
                     }
                  ?>
