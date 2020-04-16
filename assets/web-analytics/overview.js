@@ -1,3 +1,24 @@
+function sqlToJsDate(sqlDate){
+    //sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")
+    var sqlDateArr1 = sqlDate.split("-");
+    //format of sqlDateArr1[] = ['yyyy','mm','dd hh:mm:ms']
+    var sYear = sqlDateArr1[0];
+    var sMonth = (Number(sqlDateArr1[1]) - 1).toString();
+    var sqlDateArr2 = sqlDateArr1[2].split(" ");
+    //format of sqlDateArr2[] = ['dd', 'hh:mm:ss.ms']
+    var sDay = sqlDateArr2[0];
+    var sqlDateArr3 = sqlDateArr2[1].split(":");
+    //format of sqlDateArr3[] = ['hh','mm','ss.ms']
+    var sHour = sqlDateArr3[0];
+    var sMinute = sqlDateArr3[1];
+    var sqlDateArr4 = sqlDateArr3[2].split(".");
+    //format of sqlDateArr4[] = ['ss','ms']
+    var sSecond = sqlDateArr4[0];
+    var sMillisecond = sqlDateArr4[1];
+    
+    return new Date(sYear,sMonth,sDay);
+}
+
 function getData(){
 	var datos = [];
      $.ajax({
@@ -20,205 +41,77 @@ function getData(){
     return datos;
 }
 var datos = getData();
+//1st Chart data tag
+function getDate(date){
+	const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+	];
+	var myDate = new Date(date);
+	 return myDate.getDate() + ' ' +  monthNames[myDate.getMonth()] + ' ' + myDate.getFullYear();
+}
+
 $(function () {
-	var totalRevenue = 2781450,
-			totalVisitors = 883000;
+	var totalRevenue = datos.length;
 	
 
 	// data for drilldown charts
 	var dataMonthlyRevenueByCategory = {
-		"Men Clothing": {
+		"Pendiente": {
 			color: "#393f63",
 			markerSize: 0,
-			name: "Men Clothing",
+			name: "Pendiente",
 			type: "column",
-			yValueFormatString: "$###,###.00",
+			yValueFormatString: "###",
 			dataPoints: [
-				{ x: new Date("1 Jan 2015"), y: 30987.50 },
-				{ x: new Date("1 Feb 2015"), y: 0.00 },
-				{ x: new Date("1 Mar 2015"), y: 0.00 },
-				{ x: new Date("1 Apr 2015"), y: 0.00 },
-				{ x: new Date("1 May 2015"), y: 0.00 },
-				{ x: new Date("1 Jun 2015"), y: 0.00 },
-				{ x: new Date("1 Jul 2015"), y: 0.00 },
-				{ x: new Date("1 Aug 2015"), y: 0.00 },
-				{ x: new Date("1 Sep 2015"), y: 0.00 },
-				{ x: new Date("1 Oct 2015"), y: 21168.00 },
-				{ x: new Date("1 Nov 2015"), y: 30996.00 },
-				{ x: new Date("1 Dec 2015"), y: 37926.00 }
+		
 			]
 		},
-		"Women Clothing": {
+		"Finalizado": {
 			color: "#e5d8b0",
 			markerSize: 0,
-			name: "Women Clothing",
+			name: "Finalizado",
 			type: "column",
-			yValueFormatString: "$###,###.00",
-			dataPoints: [
-				{ x: new Date("1 Jan 2015"), y: 19057.50 },
-				{ x: new Date("1 Feb 2015"), y: 15624.00 },
-				{ x: new Date("1 Mar 2015"), y: 34272.00 },
-				{ x: new Date("1 Apr 2015"), y: 24948.00 },
-				{ x: new Date("1 May 2015"), y: 31752.00 },
-				{ x: new Date("1 Jun 2015"), y: 26460.00 },
-				{ x: new Date("1 Jul 2015"), y: 23940.00 },
-				{ x: new Date("1 Aug 2015"), y: 36162.00 },
-				{ x: new Date("1 Sep 2015"), y: 30240.00 },
-				{ x: new Date("1 Oct 2015"), y: 26460.00 },
-				{ x: new Date("1 Nov 2015"), y: 36162.00 },
-				{ x: new Date("1 Dec 2015"), y: 43344.00 }
-			]
+			yValueFormatString: "###",
+			dataPoints: []
 		},
-		"Gadgets": {
+		"Cancelado": {
 			color: "#ffb367",
 			markerSize: 0,
-			name: "Gadgets",
+			name: "Cancelado",
 			type: "column",
-			yValueFormatString: "$###,###.00",
+			yValueFormatString: "###",
 			dataPoints: [
-				{ x: new Date("1 Jan 2015"), y: 41580.00 },
-				{ x: new Date("1 Feb 2015"), y: 41013.00 },
-				{ x: new Date("1 Mar 2015"), y: 42840.00 },
-				{ x: new Date("1 Apr 2015"), y: 37422.00 },
-				{ x: new Date("1 May 2015"), y: 36288.00 },
-				{ x: new Date("1 Jun 2015"), y: 44100.00 },
-				{ x: new Date("1 Jul 2015"), y: 38304.00 },
-				{ x: new Date("1 Aug 2015"), y: 36162.00 },
-				{ x: new Date("1 Sep 2015"), y: 50400.00 },
-				{ x: new Date("1 Oct 2015"), y: 63504.00 },
-				{ x: new Date("1 Nov 2015"), y: 56826.00 },
-				{ x: new Date("1 Dec 2015"), y: 65016.00 }
-			]
-		},
-		"Books": {
-			color: "#f98461",
-			markerSize: 0,
-			name: "Books",
-			type: "column",
-			yValueFormatString: "$###,###.00",
-			dataPoints: [
-				{ x: new Date("1 Jan 2015"), y: 17325.00 },
-				{ x: new Date("1 Feb 2015"), y: 27342.00 },
-				{ x: new Date("1 Mar 2015"), y: 25704.00 },
-				{ x: new Date("1 Apr 2015"), y: 16632.00 },
-				{ x: new Date("1 May 2015"), y: 13608.00 },
-				{ x: new Date("1 Jun 2015"), y: 17640.00 },
-				{ x: new Date("1 Jul 2015"), y: 23940.00 },
-				{ x: new Date("1 Aug 2015"), y: 15498.00 },
-				{ x: new Date("1 Sep 2015"), y: 25200.00 },
-				{ x: new Date("1 Oct 2015"), y: 21168.00 },
-				{ x: new Date("1 Nov 2015"), y: 15498.00 },
-				{ x: new Date("1 Dec 2015"), y: 10836.00 }
-			]
-		},
-		"Others": {
-			color: "#d9695f",
-			markerSize: 0,
-			name: "Others",
-			type: "column",
-			yValueFormatString: "$###,###.00",
-			dataPoints: [
-				{ x: new Date("1 Jan 2015"), y: 69300.00 },
-				{ x: new Date("1 Feb 2015"), y: 87885.00 },
-				{ x: new Date("1 Mar 2015"), y: 81396.00 },
-				{ x: new Date("1 Apr 2015"), y: 108108.00 },
-				{ x: new Date("1 May 2015"), y: 108864.00 },
-				{ x: new Date("1 Jun 2015"), y: 101430.00 },
-				{ x: new Date("1 Jul 2015"), y: 124488.00 },
-				{ x: new Date("1 Aug 2015"), y: 139482.00 },
-				{ x: new Date("1 Sep 2015"), y: 120960.00 },
-				{ x: new Date("1 Oct 2015"), y: 132300.00 },
-				{ x: new Date("1 Nov 2015"), y: 118818.00 },
-				{ x: new Date("1 Dec 2015"), y: 113778.00 }
 			]
 		}
 	};
 	
 	// data for drilldown charts
-	var dataVisitors = {
-		"New vs Returning Visitors": [
-			{
-				click: visitorsChartDrilldownHandler,
-				cursor: "pointer",
-				explodeOnClick: false,
-				innerRadius: "75%",
-				legendMarkerType: "square",
-				name: "New vs Returning Visitors",
-				radius: "100%",
-				showInLegend: true,
-				startAngle: 90,
-				type: "doughnut",
-				dataPoints: [
-					{ y: 519960, name: "New Visitors", color: "#393f63" },
-					{ y: 363040, name: "Returning Visitors", color: "#f98461" }
-				]
-			}
-		],
-		"New Visitors": [
-			{
-				color: "#393f63",
-				name: "New Visitors",
-				type: "column",
-				dataPoints: [
-					{ x: new Date("1 Jan 2015"), y: 33000 },
-					{ x: new Date("1 Feb 2015"), y: 35960 },
-					{ x: new Date("1 Mar 2015"), y: 42160 },
-					{ x: new Date("1 Apr 2015"), y: 42240 },
-					{ x: new Date("1 May 2015"), y: 43200 },
-					{ x: new Date("1 Jun 2015"), y: 40600 },
-					{ x: new Date("1 Jul 2015"), y: 42560 },
-					{ x: new Date("1 Aug 2015"), y: 44280 },
-					{ x: new Date("1 Sep 2015"), y: 44800 },
-					{ x: new Date("1 Oct 2015"), y: 48720 },
-					{ x: new Date("1 Nov 2015"), y: 50840 },
-					{ x: new Date("1 Dec 2015"), y: 51600 }
-				]
-			}
-		],
-		"Returning Visitors": [
-			{
-				color: "#f98461",
-				name: "Returning Visitors",
-				type: "column",
-				dataPoints: [
-					{ x: new Date("1 Jan 2015"), y: 22000 },
-					{ x: new Date("1 Feb 2015"), y: 26040 },
-					{ x: new Date("1 Mar 2015"), y: 25840 },
-					{ x: new Date("1 Apr 2015"), y: 23760 },
-					{ x: new Date("1 May 2015"), y: 28800 },
-					{ x: new Date("1 Jun 2015"), y: 29400 },
-					{ x: new Date("1 Jul 2015"), y: 33440 },
-					{ x: new Date("1 Aug 2015"), y: 37720 },
-					{ x: new Date("1 Sep 2015"), y: 35200 },
-					{ x: new Date("1 Oct 2015"), y: 35280 },
-					{ x: new Date("1 Nov 2015"), y: 31160 },
-					{ x: new Date("1 Dec 2015"), y: 34400 }
-				]
-			}
-		]
-	};
 	
 	// CanvasJS spline area chart to show revenue from Jan 2015 - Dec 2015
 	var revenueSplineAreaChart = new CanvasJS.Chart("revenue-spline-area-chart", {
 		animationEnabled: true,
 		backgroundColor: "transparent",
 		axisX: {
-			interval: 2,
-			intervalType: "month",
+			interval: 1,
+			title: "Tipo de reporte",
+			labelAngle: 180,
 			labelFontColor: "#717171",
 			labelFontSize: 16,
 			lineColor: "#a2a2a2",
-			minimum: new Date("1 Jan 2015"),
+			minimum: 0,
+			maximum: 3,
 			tickColor: "#a2a2a2",
-			valueFormatString: "MMM YYYY"
+			//valueFormatString: "MMM YYYY"
 		},
 		axisY: {
+			title: "Cantidad",
+			interval: 1,
 			gridThickness: 0,
 			includeZero: false,
 			labelFontColor: "#717171",
 			labelFontSize: 16,
 			lineColor: "#a2a2a2",
-			prefix: "$",
+			prefix: "",
 			tickColor: "#a2a2a2"
 		},
 		toolTip: {
@@ -231,26 +124,17 @@ $(function () {
 				color: "#393f63",
 				markerSize: 0,
 				type: "splineArea",
-				yValueFormatString: "$###,###.##",
+				yValueFormatString: "###,###.##",
 				dataPoints: [
-					{ x: new Date("1 Jan 2015"), y: 173250 },
-					{ x: new Date("1 Feb 2015"), y: 195300 },
-					{ x: new Date("1 Mar 2015"), y: 214200 },
-					{ x: new Date("1 Apr 2015"), y: 207900 },
-					{ x: new Date("1 May 2015"), y: 226800 },
-					{ x: new Date("1 Jun 2015"), y: 220500 },
-					{ x: new Date("1 Jul 2015"), y: 239400 },
-					{ x: new Date("1 Aug 2015"), y: 258300 },
-					{ x: new Date("1 Sep 2015"), y: 252000 },
-					{ x: new Date("1 Oct 2015"), y: 264600 },
-					{ x: new Date("1 Nov 2015"), y: 258300 },
-					{ x: new Date("1 Dec 2015"), y: 270900 }
+					{ label: "Bache", y: 0 },
+					{ label: "Animal", y: 0 },
+					{ label: "Arroyo", y: 0},
+					{ label: "Fuego", y: 0 }
 				]
 			}
 		]
 	});
 	
-	revenueSplineAreaChart.render();
 	
 	// CanvasJS pie chart to show annual revenue by category
 	var annualRevenueByCategoryPieChart = new CanvasJS.Chart("annual-revenue-by-category-pie-chart", {
@@ -270,7 +154,7 @@ $(function () {
 			cornerRadius: 0,
 			fontStyle: "normal",
 			contentFormatter: function (e) {
-				return e.entries[0].dataPoint.name + ": " + CanvasJS.formatNumber(e.entries[0].dataPoint.y, "$###,###.00") + " - " + Math.round(e.entries[0].dataPoint.y / totalRevenue * 100) + "%";  
+				return e.entries[0].dataPoint.name + ": " + CanvasJS.formatNumber(e.entries[0].dataPoint.y, "###") + " - " + Math.round(e.entries[0].dataPoint.y / totalRevenue * 100) + "%";  
 			}
 		},
 		data: [
@@ -282,11 +166,9 @@ $(function () {
 				startAngle: 90,
 				type: "pie",
 				dataPoints: [
-					{ y: 342373.50, name:"Men Clothing", color: "#393f63" },
-					{ y: 348421.50, name:"Women Clothing", color: "#e5d8b0" },
-					{ y: 553455.00, name:"Gadgets", color: "#ffb367" },
-					{ y: 230391.00, name:"Books", color: "#f98461" },
-					{ y: 1306809.00, name:"Others", color: "#d9695f" }
+					{ y: 0, name:"Pendiente", color: "#393f63" },
+					{ y: 0, name:"Finalizado", color: "#e5d8b0" },
+					{ y: 0, name:"Cancelado", color: "#ffb367" },
 				]
 			}
 		]
@@ -305,10 +187,11 @@ $(function () {
 		},
 		axisY: {
 			gridThickness: 0,
+			interval: 1,
 			labelFontColor: "#717171",
 			lineColor: "#a2a2a2",
-			maximum: 150000,
-			prefix: "$",
+			maximum: datos.length,
+			prefix: "",
 			tickColor: "#a2a2a2"
 		},
 		toolTip: {
@@ -322,118 +205,65 @@ $(function () {
 		},
 		data: []
 	});
+	function updateSecondChart(chart){
+		for(var i = 0;i<datos.length;i++){
+			if(datos[i].estatus == 'Pendiente'){
+				chart['Pendiente'].dataPoints.push({
+					x: new Date(getDate(datos[i].fecha)),
+					y: 1
+				});
+			}else if(datos[i].estatus == 'Finalizado'){
+				chart['Finalizado'].dataPoints.push({
+					x: new Date(getDate(datos[i].fecha)),
+					y: 1
+				});
+			}else{
+				chart['Cancelado'].dataPoints.push({
+					x: new Date(getDate(datos[i].fecha)),
+					y: 1
+				});
+			}
+		}
+	}
+	function updateFirstChart(chart,chart2){
+		for(var i = 0;i<datos.length;i++){
+			if(datos[i].tipo == 'Bache'){
+				chart.options.data[0].dataPoints[0].y++;
+			}else if(datos[i].tipo == 'Animal'){
+				chart.options.data[0].dataPoints[1].y++;
+			}else if(datos[i].tipo == 'Arroyo'){
+				chart.options.data[0].dataPoints[2].y++;
+			}else{
+				chart.options.data[0].dataPoints[3].y++;
+			}
 
+			if(datos[i].estatus=="Pendiente")
+				chart2.options.data[0].dataPoints[0].y++;
+			else if(datos[i].estatus=="Finalizado")
+				chart2.options.data[0].dataPoints[1].y++;
+			else
+				chart2.options.data[0].dataPoints[2].y++;
+		}
+	}
+
+	updateFirstChart(revenueSplineAreaChart,annualRevenueByCategoryPieChart);
+	updateSecondChart(dataMonthlyRevenueByCategory);
 	populateMonthlyRevenueByCategoryChart();
 	monthlyRevenueByCategoryColumnChart.render();
+	revenueSplineAreaChart.render();
+	//
 
-	var visitorsDrilldownedChartOptions = {
-		animationEnabled: true,
-		backgroundColor: "transparent",
-		axisX: {
-			labelFontColor: "#717171",
-			lineColor: "#a2a2a2",
-			tickColor: "#a2a2a2"
-		},
-		axisY: {
-			gridThickness: 0,
-			includeZero: false,
-			labelFontColor: "#717171",
-			lineColor: "#a2a2a2",
-			tickColor: "#a2a2a2"
-		},
-		toolTip: {
-			cornerRadius: 0,
-			fontStyle: "normal"
-		},
-		data: []
-	};
-	
-	var newVsReturningVisitorsChartOptions = {
-		animationEnabled: true,
-		backgroundColor: "transparent",
-		legend: {
-			fontFamily: "calibri",
-			fontSize: 14,
-			itemTextFormatter: function (e) {
-				return e.dataPoint.name + ": " + Math.round(e.dataPoint.y / totalVisitors * 100) + "%";  
-			}
-		},
-		toolTip: {
-			cornerRadius: 0,
-			fontStyle: "normal",
-			contentFormatter: function (e) {
-				return e.entries[0].dataPoint.name + ": " + CanvasJS.formatNumber(e.entries[0].dataPoint.y, "###,###") + " - " + Math.round(e.entries[0].dataPoint.y / totalVisitors * 100) + "%";  
-			} 
-		},
-		data: []
-	};	
 
-	// CanvasJS doughnut chart to show new vs returning visitors
-	var visitorsChart = new CanvasJS.Chart("visitors-chart", newVsReturningVisitorsChartOptions);
-	visitorsChart.options.data = dataVisitors["New vs Returning Visitors"];
-	
-	visitorsChart.render();
 
-	// CanvasJS spline chart to show users from Jan 2015 - Dec 2015
-	var usersSplineChart = new CanvasJS.Chart("users-spline-chart", {
-		animationEnabled: true,
-		backgroundColor: "transparent",
-		axisX: {
-			labelFontColor: "#717171",
-			lineColor: "#a2a2a2",
-			tickColor: "#a2a2a2"
-		},
-		axisY: {
-			gridThickness: 0,
-			includeZero: false,
-			labelFontColor: "#717171",
-			lineColor: "#a2a2a2",
-			tickColor: "#a2a2a2"
-		},
-		toolTip: {
-			borderThickness: 1,
-			cornerRadius: 0,
-			fontStyle: "normal"
-		},
-		data: [
-			{
-				color: 	"#393F63", 
-				lineThickness: 3,
-				markerSize: 0,
-				type: "spline",
-				dataPoints: [
-					{ x: new Date("1 Jan 2015"), y: 55000 },
-					{ x: new Date("1 Feb 2015"), y: 62000 },
-					{ x: new Date("1 Mar 2015"), y: 68000 },
-					{ x: new Date("1 Apr 2015"), y: 66000 },
-					{ x: new Date("1 May 2015"), y: 72000 },
-					{ x: new Date("1 Jun 2015"), y: 70000 },
-					{ x: new Date("1 Jul 2015"), y: 76000 },
-					{ x: new Date("1 Aug 2015"), y: 82000 },
-					{ x: new Date("1 Sep 2015"), y: 80000 },
-					{ x: new Date("1 Oct 2015"), y: 84000 },
-					{ x: new Date("1 Nov 2015"), y: 82000 },
-					{ x: new Date("1 Dec 2015"), y: 86000 }
-				]
-			}
-		]
-	});
 	
-	usersSplineChart.render();	
 	
 	//----------------------------------------------------------------------------------//
-	var allCharts = [
-		revenueSplineAreaChart,
-		annualRevenueByCategoryPieChart,
-		monthlyRevenueByCategoryColumnChart,
-		visitorsChart,
-		usersSplineChart
-	];
+	
 	
 	function populateMonthlyRevenueByCategoryChart() {
 		for (var prop in dataMonthlyRevenueByCategory)
 			if  (dataMonthlyRevenueByCategory.hasOwnProperty(prop))
-				monthlyRevenueByCategoryColumnChart.options.data.push( dataMonthlyRevenueByCategory[prop] );
+				monthlyRevenueByCategoryColumnChart.options.data.push(dataMonthlyRevenueByCategory[prop] );
 	}
 	
 	function monthlyRevenueByCategoryDrilldownHandler(e) {
@@ -449,32 +279,12 @@ $(function () {
 		monthlyRevenueByCategoryColumnChart.render();
 	}
 	
-	var visitorsChartHeadingDOM = $("#visitors-chart-heading"),
-			visitorsChartBackButtonDOM = $("#visitors-chart-back-button"),
-			visitorsChartTagDOM = $("#visitors-chart-tag");
+
 	
-	function visitorsChartDrilldownHandler (e) {
-		visitorsChart = new CanvasJS.Chart("visitors-chart", visitorsDrilldownedChartOptions);
-		visitorsChart.options.data = dataVisitors[e.dataPoint.name];
-		visitorsChart.render();
-		
-		// DOM Manipulations
-		visitorsChartHeadingDOM.html(e.dataPoint.name);
-		visitorsChartBackButtonDOM.toggleClass("invisible");
-		visitorsChartTagDOM.toggleClass("invisible");
-	}
+	
 	
 	// binding click event to visitors chart back button to drill up to "New Vs Returning Visitors" doughnut chart
-	visitorsChartBackButtonDOM.on("click", function () {
-		visitorsChart = new CanvasJS.Chart("visitors-chart", newVsReturningVisitorsChartOptions);
-		visitorsChart.options.data = dataVisitors["New vs Returning Visitors"];
-		visitorsChart.render();
-		
-		// DOM Manipulations
-		visitorsChartHeadingDOM.html("New vs Returning Visitors");
-		visitorsChartBackButtonDOM.toggleClass("invisible");
-		visitorsChartTagDOM.toggleClass("invisible");
-	});
+
 	
 	// chart properties cutomized further based on screen width
 	function chartPropertiesCustomization () {
@@ -483,38 +293,21 @@ $(function () {
 			annualRevenueByCategoryPieChart.options.legend.horizontalAlign = "left";
 			annualRevenueByCategoryPieChart.options.legend.verticalAlign = "center";
 			annualRevenueByCategoryPieChart.render();
-			
-			visitorsChartTagDOM.css("position", "absolute");
-			
+						
 		} else if ($(window).outerWidth() < 1200) {
 			
 			annualRevenueByCategoryPieChart.options.legend.horizontalAlign = "center";
 			annualRevenueByCategoryPieChart.options.legend.verticalAlign = "top";
 			annualRevenueByCategoryPieChart.render();
 			
-			visitorsChartTagDOM.css("position", "static");
 			
 		}
 	}
-	
-	function renderAllCharts() {
-		for (var i = 0; i < allCharts.length; i++)
-			allCharts[i].render();
-	}
-	
-	function sidebarToggleOnClick() {
-		$('#sidebar-toggle-button').on('click', function () {
-			$('#sidebar').toggleClass('sidebar-toggle');
-			$('#page-content-wrapper').toggleClass('page-content-toggle');
-			renderAllCharts();
-		});	
-	}
-	
+
 	(function init() {
 		console.log(datos);
 		chartPropertiesCustomization();
 		$(window).resize(chartPropertiesCustomization);
-		sidebarToggleOnClick();
 	})();
 	
 });

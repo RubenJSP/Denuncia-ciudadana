@@ -1,6 +1,23 @@
 <?php
 	require_once 'conection.php';
 	include 'template/header.php';
+
+	function getReports(){
+	  	 $dbh = connectDB();
+	  	 $query = 'SELECT * FROM denuncias';
+           $stm = $dbh->prepare($query);
+           $stm->setFetchMode(PDO::FETCH_ASSOC);
+           $stm->execute();
+           $data = $stm->fetch();
+           if(!isset($data))
+            	$data = '
+            	<div class="alert alert-primary" role="alert" style="margin: 0 auto; width:1000px;">
+ 				 La lista de reportes está vacía.
+				</div>
+            	';
+
+            return $data;
+	  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +51,7 @@
 			<div class="row m-b-1">
 				<div class="col-md-12">
 					<div class="card card-block">
-						<h4 class="card-title m-b-2">Revenue - 2015 <span class="tag m-l-1" id="revenue-tag">$2,781,450</span></h4>
+						<h4 class="card-title m-b-2">Reportes registrados <span class="tag m-l-1" id="revenue-tag"></span></h4>
 						<div id="revenue-spline-area-chart"></div>
 					</div>
 				</div>
@@ -45,11 +62,11 @@
 			<div class="row m-b-1">
 				<div class="col-md-12">
 					<div class="card card-block">
-						<h4 class="card-title m-b-2">Revenue By Category</h4>
-						<span class="tag custom-tag hidden-sm-down">Try clicking on any segment</span>
+						<h4 class="card-title m-b-2">Estatus de los reportes</h4>
+						<span class="tag custom-tag hidden-sm-down">Haga clic en un segmento</span>
 						<div class="row">
 							<div class="col-md-4">
-								<div id="annual-revenue-by-category-pie-chart"></div>
+								<div id="annual-revenue-by-category-pie-chart"></div> -->
 							</div>
 							<div class="col-md-8 hidden-sm-down">
 								<div id="monthly-revenue-by-category-column-chart"></div>
@@ -59,33 +76,15 @@
 				</div>
 			</div>
 			<!-- /2nd row -->
-
-			<!-- 3rd row -->
-			<div class="row">
-				<div class="col-xl-6">
-					<div class="card card-block">
-						<h4 class="card-title m-b-2">
-							<span id="visitors-chart-heading">New vs Returning Visitors </span>
-							<button class="btn pull-right invisible" type="button" id="visitors-chart-back-button"><i class="fa fa-angle-left fa-lg" aria-hidden="true"></i> Back</button>
-						</h4>
-						<span class="tag custom-tag" id="visitors-chart-tag">Try clicking on any segment</span>
-						<div id="visitors-chart"></div>
-					</div>
-				</div>
-				<div class="col-xl-6">
-					<div class="card card-block">
-						<h4 class="card-title m-b-2">Users</h4>
-						<div id="users-spline-chart"></div>
-					</div>
-				</div>
-			</div>
-			<!-- /3rd row -->
 		</div>
 		<!-- /.container-fluid -->
 
 
 	<!-- /page-content-wrapper -->
 </div>
+<script type="text/javascript">
+	document.getElementById('revenue-tag').innerHTML = 'Total: ' + datos.length;
+</script>
 </body>
 
 </html>
